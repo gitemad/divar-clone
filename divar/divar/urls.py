@@ -28,6 +28,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include([
         path(
+            'location/',
+            include('location.urls', namespace='location')
+        ),
+        path(
             'users/',
             UserCreateAPIView.as_view(),
             name='user_create',
