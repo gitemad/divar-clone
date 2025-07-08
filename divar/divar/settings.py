@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'authentication',
     'rest_framework_simplejwt',
+    'location',
 ]
 
 MIDDLEWARE = [
