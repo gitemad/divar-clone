@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import environ
 from pathlib import Path
+from datetime import timedelta
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'debug_toolbar',
     'authentication',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,15 @@ INTERNAL_IPS = [
 ]
 
 AUTH_USER_MODEL = "authentication.User"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+    "ROTATE_REFRESH_TOKENS": False,
+}
