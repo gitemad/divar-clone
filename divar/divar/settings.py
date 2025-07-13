@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'authentication',
     'rest_framework_simplejwt',
     'location',
+    'ads',
 ]
 
 MIDDLEWARE = [
