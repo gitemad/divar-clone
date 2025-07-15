@@ -48,9 +48,24 @@ class AdvertiseListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertise
         fields = [
+            'uuid',
             'title',
             'neighborhood',
             'image',
             'price',
             'created',
+        ]
+
+class AdvertiseRetrieveSerializer(serializers.ModelSerializer):
+    neighborhood = NeighborhoodSerializer()
+
+    class Meta:
+        model = Advertise
+        fields = [
+            'title',
+            'neighborhood',
+            'image',
+            'price',
+            'created',
+            'description',
         ]
