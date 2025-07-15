@@ -32,6 +32,10 @@ urlpatterns = [
             include('location.urls', namespace='location')
         ),
         path(
+            'ads/',
+            include('ads.urls', namespace='ads')
+        ),
+        path(
             'users/',
             UserCreateAPIView.as_view(),
             name='user_create',
