@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import (
     Category,
     Advertise,
+    Neighborhood,
 )
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -21,6 +22,13 @@ class CategorySerializer(serializers.ModelSerializer):
         children = getattr(obj, 'childs', [])
         return CategorySerializer(children, many=True).data
 
+class NeighborhoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Neighborhood
+        fields = [
+            'title',
+        ]
+
 class AdvertiseCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertise
@@ -32,4 +40,17 @@ class AdvertiseCreateSerializer(serializers.ModelSerializer):
             'description',
             'image',
             'price',
+        ]
+
+class AdvertiseListSerializer(serializers.ModelSerializer):
+    neighborhood = NeighborhoodSerializer()
+
+    class Meta:
+        model = Advertise
+        fields = [
+            'title',
+            'neighborhood',
+            'image',
+            'price',
+            'created',
         ]

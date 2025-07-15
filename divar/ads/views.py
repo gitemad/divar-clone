@@ -1,5 +1,8 @@
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    ListAPIView,
+)
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import (
@@ -9,6 +12,7 @@ from .models import (
 from .serializers import (
     CategorySerializer,
     AdvertiseCreateSerializer,
+    AdvertiseListSerializer,
 )
 
 # Create your views here.
@@ -43,3 +47,10 @@ class AdvertiseCreateAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class AdvertiseListAPIView(ListAPIView):
+    serializer_class = AdvertiseListSerializer
+
+    def get_queryset(self):
+        city_slug = self.kwargs.get('city_slug')
+        return Advertise.objects.filter(city__slug=city_slug)
