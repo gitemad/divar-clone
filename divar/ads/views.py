@@ -15,6 +15,7 @@ from .serializers import (
     AdvertiseCreateSerializer,
     AdvertiseListSerializer,
     AdvertiseRetrieveSerializer,
+    AdvertiseContactInfoSerializer,
 )
 
 # Create your views here.
@@ -60,4 +61,10 @@ class AdvertiseListAPIView(ListAPIView):
 class AdvertiseRetrieveAPIView(RetrieveAPIView):
     queryset = Advertise.objects.all()
     serializer_class = AdvertiseRetrieveSerializer
+    lookup_field = 'uuid'
+
+class AdvertiseContactInfoAPIView(RetrieveAPIView):
+    queryset = Advertise.objects.select_related('user')
+    serializer_class = AdvertiseContactInfoSerializer
+    permission_classes = (IsAuthenticated,)
     lookup_field = 'uuid'
