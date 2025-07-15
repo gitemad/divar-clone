@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import Category
+from .models import (
+    Category,
+    Advertise,
+)
 
 class CategorySerializer(serializers.ModelSerializer):
     children = serializers.SerializerMethodField()
@@ -17,3 +20,16 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_children(self, obj):
         children = getattr(obj, 'childs', [])
         return CategorySerializer(children, many=True).data
+
+class AdvertiseCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advertise
+        fields = [
+            'title',
+            'category',
+            'city',
+            'neighborhood',
+            'description',
+            'image',
+            'price',
+        ]

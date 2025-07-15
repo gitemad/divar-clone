@@ -1,7 +1,15 @@
 from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-from .models import Category
-from .serializers import CategorySerializer
+from rest_framework.permissions import IsAuthenticated
+from .models import (
+    Category,
+    Advertise,
+)
+from .serializers import (
+    CategorySerializer,
+    AdvertiseCreateSerializer,
+)
 
 # Create your views here.
 class CategoryListAPIView(APIView):
@@ -27,3 +35,11 @@ class CategoryListAPIView(APIView):
         return Response(serializer.data)
 
 # TODO: Delete category and shift the order
+
+class AdvertiseCreateAPIView(CreateAPIView):
+    queryset = Advertise.objects.all()
+    serializer_class = AdvertiseCreateSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
