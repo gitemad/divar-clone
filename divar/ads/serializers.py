@@ -70,6 +70,19 @@ class AdvertiseRetrieveSerializer(serializers.ModelSerializer):
             'description',
         ]
 
+class AdvertiseUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advertise
+        fields = [
+            'title',
+            'category',
+            'city',
+            'neighborhood',
+            'description',
+            'image',
+            'price',
+        ]
+
 class AdvertiseContactInfoSerializer(serializers.ModelSerializer):
     phone_number = serializers.SerializerMethodField()
 
