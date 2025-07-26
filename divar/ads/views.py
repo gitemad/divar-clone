@@ -3,6 +3,8 @@ from rest_framework.generics import (
     CreateAPIView,
     ListAPIView,
     RetrieveAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
 )
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -16,6 +18,10 @@ from .serializers import (
     AdvertiseListSerializer,
     AdvertiseRetrieveSerializer,
     AdvertiseContactInfoSerializer,
+    AdvertiseUpdateSerializer,
+)
+from .permissions import (
+    IsOwner,
 )
 
 # Create your views here.
@@ -67,4 +73,15 @@ class AdvertiseContactInfoAPIView(RetrieveAPIView):
     queryset = Advertise.objects.select_related('user')
     serializer_class = AdvertiseContactInfoSerializer
     permission_classes = (IsAuthenticated,)
+    lookup_field = 'uuid'
+
+class AdvertiseUpdateAPIView(UpdateAPIView):
+    queryset = Advertise.objects.select_related('user')
+    serializer_class = AdvertiseUpdateSerializer
+    permission_classes = (IsOwner,)
+    lookup_field = 'uuid'
+
+class AdvertiseDestroyAPIView(DestroyAPIView):
+    queryset = Advertise.objects.select_related('user')
+    permission_classes = (IsOwner,)
     lookup_field = 'uuid'
